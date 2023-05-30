@@ -2,6 +2,17 @@ let express = require('express');
 require('dotenv').config();
 let app = express();
 
+function logger(req, res, next) {
+  const meth = req.method;
+  const ip = req.ip;
+  const pathh = req.path;
+  const log = `${meth} ${pathh} - ${ip}`;
+  console.log(log);
+  next();
+}
+
+app.use(logger)
+
 console.log("Hello World");
 
 const absolute_path = __dirname + '/views/index.html';
@@ -21,17 +32,6 @@ app.get("/json", function(req, res){
     res.json({"message": "Hello json"});
   }
 });
-
-function logger(req, res, next) {
-  const meth = req.method;
-  const ip = req.ip;
-  const pathh = req.path;
-  const log = `${meth} ${pathh} - ${ip}`;
-  console.log(log);
-  next();
-}
-
-app.use(logger)
 
 
 
