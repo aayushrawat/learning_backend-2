@@ -12,18 +12,13 @@ function logger(req, res, next) {
 }
 
 app.use(logger)
-
+app.use("/public", express.static(__dirname + "/public"));
 console.log("Hello World");
-
 const absolute_path = __dirname + '/views/index.html';
-
-
 app.get("/", function(req, res) {
 //   res.send("Hello Express");
   res.sendFile(absolute_path);
 });
-
-app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/json", function(req, res){
   if (process.env.MESSAGE_STYLE==='uppercase'){
@@ -33,7 +28,13 @@ app.get("/json", function(req, res){
   }
 });
 
+app.get("/now", function chaining(req, res, next){
+  req.time = new Date().toString();
+  next();
 
+}, function chain_2(req, res){
+res.send({'time': req.time});
+});
 
 
 
