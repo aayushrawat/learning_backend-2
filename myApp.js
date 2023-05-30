@@ -20,8 +20,18 @@ app.get("/json", function(req, res){
   } else {
     res.json({"message": "Hello json"});
   }
-
 });
+
+function logger(req, res, next) {
+  const meth = req.method;
+  const ip = req.ip;
+  const pathh = req.path;
+  const log = `${meth} ${pathh} - ${ip}`;
+  console.log(log);
+  next();
+}
+
+app.use(logger)
 
 
 
