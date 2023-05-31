@@ -1,6 +1,7 @@
 let express = require('express');
 require('dotenv').config();
 let app = express();
+let bodyParser = require('body-parser');
 
 function logger(req, res, next) {
   const meth = req.method;
@@ -10,9 +11,10 @@ function logger(req, res, next) {
   console.log(log);
   next();
 }
-
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(logger)
 app.use("/public", express.static(__dirname + "/public"));
+
 console.log("Hello World");
 const absolute_path = __dirname + '/views/index.html';
 app.get("/", function(req, res) {
