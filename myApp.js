@@ -51,8 +51,10 @@ app.get("/name", function (req, res){
 });
 
 app.post("/name", function(req, res){
-  const body = req.body;
-  res.send(body);
+  const f_name = req.body.first;
+  const l_name = req.body.last;
+  const jsn = { 'name': f_name + ' ' + l_name };
+  res.send(jsn);
 });
 
 
