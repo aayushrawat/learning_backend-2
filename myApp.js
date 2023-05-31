@@ -50,6 +50,11 @@ app.get("/name", function (req, res){
   res.json(name)
 });
 
+app.post("/name", function(req, res){
+  const body = req.body;
+  res.send(body);
+});
+
 
 
 
